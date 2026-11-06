@@ -71,7 +71,7 @@ python prep.py /path/to/closure-challenge-benchmark/data --out cache.npz
 
  data directory needs to contain `Parm_PH_29`, `DUCT`, `CBFS`, `PH_Breuer`,
 `NASA_2DWMH`, and `evaluation_points`. 
- 
+please refer to [this repo](https://github.com/rmcconke/closure-challenge-benchmark) for the data. 
 
 file overview
 - `prep.py`, `data.py`: field reading, geometry, case splits and normalization.
