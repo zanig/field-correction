@@ -78,6 +78,5 @@ file overview
 - `model.py`, `train.py`: model architecture and two-phase training.
 - `predict.py`, `score.py`: CSV export and official test scoring.
 - `validate.py`: held-out evaluation.
-- `experiments/`: optional parameter-search utilities, separate from the main method.
-- `runs/latest/`: selected run's original configuration, manifest and training log.
+
 
