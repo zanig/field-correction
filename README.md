@@ -17,8 +17,8 @@ These commands use `cache.npz` (from running prep.py), `checkpoints/seed1234.pt`
 The evaluator score for this checkpoint is **0.0426686240** with seed 1234 (I swear I didnt cherry pick this).
 A 5-seed ensemble (1234, 4321, 1337, 1338, 777) scores **0.0436807166**.
 Individual seed scores range from **0.0426686240** to **0.0510671909**; seed 1234
-has the lowest  error. All seeds use 20k/10k training steps.
-The ensemble CSVs and per-seed/per-case scores are in `runs/ensemble_5seeds/`.
+has the lowest  error. All seeds used 20k/10k training steps.
+
 
 ## Install dependencies
 ```sh
