@@ -13,7 +13,7 @@ python predict.py
 python score.py
 ```
 
-These commands use `cache.npz`, `checkpoints/seed1234.pt`, and `predictions/`.
+These commands use `cache.npz` (from running prep.py), `checkpoints/seed1234.pt`, and `predictions/`.
 The evaluator score for this checkpoint is **0.0426686240** with seed 1234 (I swear I didnt cherry pick this).
 A 5-seed ensemble (1234, 4321, 1337, 1338, 777) scores **0.0436807166**.
 Individual seed scores range from **0.0426686240** to **0.0510671909**; seed 1234
