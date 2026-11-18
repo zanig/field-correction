@@ -9,7 +9,32 @@ This is a direct velocity correction and does not enforce any governing equation
 ## Use the ten-seed ensemble
 
 The equal-weight ten-seed ensemble uses a 9k/3k training schedule and scores
-**0.0425321534** with the official evaluator.
+**0.0425321534** with the official evaluator. Individual seeds score between
+0.0443 and 0.0582.
+
+| Case | RANS baseline | Ensemble |
+|---|---|---|
+| `alpha_15_13929_4048` | 0.1320 | 0.0244 |
+| `alpha_15_13929_2024` | 0.2049 | 0.0204 |
+| `alpha_05_4071_4048` | 0.0461 | 0.0306 |
+| `alpha_05_4071_2024` | 0.0719 | 0.0451 |
+| `AR_1_Ret_360` | 0.1288 | 0.0571 |
+| `AR_3_Ret_360` | 0.1243 | 0.0557 |
+| `AR_14_Ret_180` | 0.0590 | 0.0215 |
+| `NASA_2DWMH` | 0.0621 | 0.0854 |
+| Overall | 0.1036 | 0.0425 |
+
+Things to know before trusting that number:
+- On the NASA hump the model is worse than doing nothing (the plain RANS baseline).
+- No test case was used to fit weights. Learning rate, weight decay, latent
+  weight, dropout, the regularizer variant and the 9k/3k schedule were compared
+  on five held-out non-test cases.
+- I did preview evaluator scores on the test cases during development (training
+  length, with/without the regularizer, single seeds vs ensemble), and I tried
+  the ensemble after seeing how much single-seed test scores vary.
+- The hump comes in the x-z plane while all 2D training cases are x-y, and the
+  pipeline does not realign it. I tried realigning it afterwards; that scored
+  0.0426940638, and the released predictions are from the original pipeline.
 
 - [Download the full ensemble bundle](releases/ensemble-9k3k-v1/closurechallenge-ensemble-10seed-9k3k-v1.zip): all ten checkpoints, exact source, prediction CSVs, and reproduction instructions.
 - [Download the submission CSVs](releases/ensemble-9k3k-v1/closurechallenge-ensemble-10seed-9k3k-v1-predictions.zip): eight CSVs under `test/`.
@@ -94,6 +119,5 @@ file overview
 - `predict.py`, `score.py`: CSV export and official test scoring.
 - `validate.py`: held-out evaluation.
 - `experiments/`: optional parameter-search utilities, separate from the main method.
-- `runs/latest/`: current run's configuration, manifest and training log.
 - `releases/ensemble-9k3k-v1/`: downloadable ensemble and submission bundles.
 

@@ -12,3 +12,4 @@ __pycache__/
 !/checkpoints/seed1234.json
 /predictions/
 .vscode
+/releases/*/*/
