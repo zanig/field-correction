@@ -11,12 +11,15 @@ all 32 non-test cases. Inference uses RANS fields and geometry.
 
 The schedule followed an exploratory one-seed held-out validation comparison.
 Public evaluator scores were also previewed during development for training-
-length, regularization, and ensemble experiments, and the
+length, regularization, ensemble, and frame-alignment experiments, and the
 decision to try an ensemble followed single-model test results. All model
 fitting used non-test cases. Every ensemble member is included with equal weight.
 
 On `NASA_2DWMH` the model is worse than the uncorrected RANS baseline (0.0854
-against 0.0621).
+against 0.0621). That case is supplied in the x-z plane while every 2D training
+case is in the x-y plane, and the pipeline does not realign it. Realigning it at
+inference was tried afterwards and scored 0.0426940638 overall; the released
+predictions come from the original pipeline.
 
 After extracting the full bundle, follow its README. Scoring the supplied
 CSVs needs no raw CFD data; regenerating predictions requires the benchmark
