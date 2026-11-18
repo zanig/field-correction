@@ -1,0 +1,120 @@
+{
+  "checkpoint": "checkpoints/seed1234.pt",
+  "checkpoint_sha256": "a65788b48f6888e5be95bf4efff855111ecba84874698c580e6f53f2ef275d41",
+  "seed": 1234,
+  "model_config": {
+    "dropout": 0.0
+  },
+  "recipe": {
+    "phase_steps": [
+      9000,
+      3000
+    ],
+    "lr": 0.001,
+    "min_lr": 1e-05,
+    "weight_decay": 0.001,
+    "latent_weight": 0.1,
+    "sigreg_weight": 0.05,
+    "dropout": 0.0
+  },
+  "train_cases": [
+    "alpha_05_10071_3036",
+    "alpha_05_4071_3036",
+    "alpha_05_7071_2024",
+    "alpha_05_7071_3036",
+    "alpha_05_7071_4048",
+    "alpha_075",
+    "alpha_10_12000_2024",
+    "alpha_10_12000_3036",
+    "alpha_10_12000_4048",
+    "alpha_10_6000_2024",
+    "alpha_10_6000_3036",
+    "alpha_10_6000_4048",
+    "alpha_10_9000_2024",
+    "alpha_10_9000_3036",
+    "alpha_10_9000_4048",
+    "alpha_125",
+    "alpha_15_10929_2024",
+    "alpha_15_10929_3036",
+    "alpha_15_10929_4048",
+    "alpha_15_13929_3036",
+    "alpha_15_7929_3036",
+    "AR_1_Ret_180",
+    "AR_3_Ret_180",
+    "AR_5_Ret_180",
+    "AR_10_Ret_180",
+    "PH_Breuer",
+    "alpha_05_10071_2024",
+    "alpha_05_10071_4048",
+    "alpha_15_7929_4048",
+    "alpha_15_7929_2024",
+    "AR_7_Ret_180",
+    "CBFS"
+  ],
+  "validation_cases": [],
+  "cache_content_sha256": "667396ef8eb39248209c8b087b78e4b05e8a75c13ddd34dbef89b5ddf9645b83",
+  "preprocessing_version": 2,
+  "environment": {
+    "python": "3.12.12 | packaged by conda-forge | (main, Oct 13 2025, 14:47:45) [Clang 19.1.7 ]",
+    "platform": "macOS-26.5.2-arm64-arm-64bit",
+    "numpy": "2.2.6",
+    "torch": "2.14.0",
+    "scipy": "1.14.1",
+    "vtk": "9.5.2",
+    "closure-challenge": "0.3.1"
+  },
+  "device": "cpu",
+  "threads": 1,
+  "source_sha256": {
+    "requirements.txt": "7e701a1dba7d010153e4831530ebd6074e82f439596631969c4bbc68f24080e8",
+    "predict.py": "3e877702c89d39d64d3e1ec4c2a35b69a65a1f7d6ddfd554a6679cf26a5b5ee6",
+    "model.py": "561f0609f45ed6f84c41a423b926a32c88538cfb7b4715e73ca789beae3d0571",
+    "validate.py": "f7e007eb4af509b15c56dc9f330015bf3739314ddd2852c1164eeee6937b128b",
+    "prep.py": "d5b2c0f11007c5fb34b26382e8457cdf3068755a75d9c79dbd56603e238373cb",
+    "utils.py": "61badf7941624b9d23611be2ec5ded687ef2acae68da65b12b5e9011d3f7710b",
+    "train.py": "6f60ddd9151c76be21a90f0a278cd5cd770232841e76fc629e7bd50bae5ffb55",
+    "data.py": "7e0d102620deafb1c54eedfed4f6fa73daf454efeb472bc451d59f8487c0b56c",
+    "score.py": "9c60b370ca2eaadf3a62eab142165d54479b64e00ede601e54b8d1fab793baad"
+  },
+  "training_seconds": 375.4552010828629,
+  "training_command": "python -u train.py --out runs/my_run --seeds 1234 --steps 9000 3000 --device cpu --threads 1",
+  "schedule_selection": {
+    "method": "Exploratory comparison of three schedules using complete held-out non-test cases and one seed.",
+    "seed": 1234,
+    "training_cases": 27,
+    "validation_cases": [
+      "alpha_05_10071_4048",
+      "alpha_05_10071_2024",
+      "alpha_15_7929_4048",
+      "alpha_15_7929_2024",
+      "AR_7_Ret_180"
+    ],
+    "validation_mean_by_schedule": {
+      "2000_1000": 0.05171181410551071,
+      "9000_3000": 0.028187449276447295,
+      "20000_10000": 0.028795375674962997
+    },
+    "selected_phase_steps": [
+      9000,
+      3000
+    ],
+    "selection_environment": {
+      "python": "3.12.12 | packaged by conda-forge | (main, Oct 13 2025, 14:47:45) [Clang 19.1.7 ]",
+      "numpy": "2.5.2",
+      "torch": "2.14.0",
+      "platform": "macOS-26.5.2-arm64-arm-64bit"
+    }
+  },
+  "test_score": 0.04898192214870472,
+  "per_case": {
+    "alpha_15_13929_4048": 0.027439798042300567,
+    "alpha_15_13929_2024": 0.02714264045684398,
+    "alpha_05_4071_4048": 0.03788888826221395,
+    "alpha_05_4071_2024": 0.05020977068816854,
+    "AR_1_Ret_360": 0.06131606539260087,
+    "AR_3_Ret_360": 0.062255644261165664,
+    "AR_14_Ret_180": 0.02126002055444454,
+    "NASA_2DWMH": 0.10434254953189964
+  },
+  "evaluator_version": "0.3.1"
+}

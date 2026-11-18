@@ -10,11 +10,11 @@ import torch.nn.functional as F
 
 from data import CONTEXT_POINTS, GEOMETRY, TEST_CASES, VALIDATION_CASES, family, load, split_bank
 from model import Model, sigreg
-from utils import sha256, write_json
+from utils import cache_content_sha256, write_json
 
 CONTEXT, QUERIES, CASE_BATCH = CONTEXT_POINTS, 1024, 8
 RECIPE = {
-    "phase_steps": [20000, 10000],
+    "phase_steps": [9000, 3000],
     "lr": 1e-3,
     "min_lr": 1e-5,
     "weight_decay": 1e-3,
@@ -143,7 +143,7 @@ def main():
     if args.holdout_validation:
         bank, _ = split_bank(bank)
     args.out.mkdir(parents=True)
-    cache_hash = sha256(args.cache)
+    cache_hash = cache_content_sha256(args.cache)
     write_json(args.out / "config.json", recipe)
 
     for seed in args.seeds:
@@ -161,7 +161,7 @@ def main():
         temporary = path.with_suffix(".tmp")
         torch.save({"seed": seed, "state": model.state_dict(), "model_config": model_config,
                     "recipe": recipe, "train_cases": list(bank.names),
-                    "cache_sha256": cache_hash,
+                    "cache_content_sha256": cache_hash,
                     "preprocessing_version": bank.preprocessing_version,
                     "validation_cases": list(VALIDATION_CASES) if args.holdout_validation else []},
                    temporary)

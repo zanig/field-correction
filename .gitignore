@@ -8,6 +8,7 @@ __pycache__/
 *.tmp
 /archive/
 /runs/
-/checkpoints/
+/checkpoints/*
+!/checkpoints/seed1234.json
 /predictions/
 .vscode

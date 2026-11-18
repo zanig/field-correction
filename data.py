@@ -123,10 +123,10 @@ def check_preprocessing(checkpoint: dict, bank: Bank, cache_path: Path | None = 
     if version != bank.preprocessing_version:
         raise ValueError(f"Checkpoint preprocessing v{version} does not match cache v{bank.preprocessing_version}; "
                          "use its original cache or retrain with the corrected cache")
-    if cache_path is not None and checkpoint.get("cache_sha256"):
-        from utils import sha256
-        if sha256(cache_path) != checkpoint["cache_sha256"]:
-            raise ValueError("Cache contents do not match the checkpoint's recorded cache hash")
+    if cache_path is not None and checkpoint.get("cache_content_sha256"):
+        from utils import cache_content_sha256
+        if cache_content_sha256(cache_path) != checkpoint["cache_content_sha256"]:
+            raise ValueError("Cache array contents do not match the checkpoint's recorded content hash")
 
 
 def scores(pred: np.ndarray, bank: Bank) -> dict[str, float]:
