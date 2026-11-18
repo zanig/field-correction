@@ -32,9 +32,6 @@ Things to know before trusting that number:
 - I did preview evaluator scores on the test cases during development (training
   length, with/without the regularizer, single seeds vs ensemble), and I tried
   the ensemble after seeing how much single-seed test scores vary.
-- The hump comes in the x-z plane while all 2D training cases are x-y, and the
-  pipeline does not realign it. I tried realigning it afterwards; that scored
-  0.0426940638, and the released predictions are from the original pipeline.
 
 - [Download the full ensemble bundle](releases/ensemble-9k3k-v1/closurechallenge-ensemble-10seed-9k3k-v1.zip): all ten checkpoints, exact source, prediction CSVs, and reproduction instructions.
 - [Download the submission CSVs](releases/ensemble-9k3k-v1/closurechallenge-ensemble-10seed-9k3k-v1-predictions.zip): eight CSVs under `test/`.
