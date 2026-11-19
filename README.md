@@ -12,37 +12,45 @@ The equal-weight ten-seed ensemble uses a 9k/3k training schedule and scores
 **0.0406128562** with the official evaluator. Individual seeds score between
 0.0407 and 0.0487. Each member has 87,523 parameters.
 
-| Case | RANS baseline | Ensemble |
-|---|---|---|
-| `alpha_15_13929_4048` | 0.1320 | 0.0238 |
-| `alpha_15_13929_2024` | 0.2049 | 0.0151 |
-| `alpha_05_4071_4048` | 0.0461 | 0.0298 |
-| `alpha_05_4071_2024` | 0.0719 | 0.0466 |
-| `AR_1_Ret_360` | 0.1288 | 0.0576 |
-| `AR_3_Ret_360` | 0.1243 | 0.0491 |
-| `AR_14_Ret_180` | 0.0590 | 0.0202 |
-| `NASA_2DWMH` | 0.0621 | 0.0828 |
-| Overall | 0.1036 | 0.0406 |
+| Case | RANS baseline | Ensemble | Mean member | Worst member |
+|---|---|---|---|---|
+| `alpha_15_13929_4048` | 0.1320 | 0.0238 | 0.0251 | 0.0294 |
+| `alpha_15_13929_2024` | 0.2049 | 0.0151 | 0.0199 | 0.0236 |
+| `alpha_05_4071_4048` | 0.0461 | 0.0298 | 0.0320 | 0.0375 |
+| `alpha_05_4071_2024` | 0.0719 | 0.0466 | 0.0502 | 0.0597 |
+| `AR_1_Ret_360` | 0.1288 | 0.0576 | 0.0593 | 0.0658 |
+| `AR_3_Ret_360` | 0.1243 | 0.0491 | 0.0506 | 0.0618 |
+| `AR_14_Ret_180` | 0.0590 | 0.0202 | 0.0211 | 0.0256 |
+| `NASA_2DWMH` | 0.0621 | 0.0828 | 0.1001 | 0.1260 |
+| Overall | 0.1036 | 0.0406 | 0.0448 | 0.0487 |
+
+Mean and worst member are taken per case over the ten single models, so the
+worst entry can come from a different seed in each row. The Overall row uses
+each member's overall score.
 
 Things to know before trusting that number:
 - On the NASA hump the model is worse than doing nothing (the plain RANS baseline).
-- No test case was used to fit weights. Learning rate, weight decay, latent
-  weight, dropout, the regularizer variant and the 9k/3k schedule were compared
-  on five held-out non-test cases.
-- This is the second ensemble I scored on the test cases. The first
-  ([version 1](releases/ensemble-9k3k-v1/README.md)) used a smaller model
-  (24,691 parameters) and scored 0.0425321534. Its size was not chosen on
-  validation.
-- For this version I only changed the model size, and picked it from a sweep on
-  the five held-out cases that never touched the test set
-  ([script](experiments/size_sweep.py), [results](experiments/size_sweep_results.json)).
-  The largest size had the lowest validation error, though the gaps between
-  neighbouring sizes are about as big as the gap between two seeds. I wrote
-  down the size, seeds and weights before training and scored it once.
-- I did preview evaluator scores on the test cases during development of
-  version 1 (training length, with/without the regularizer, single seeds vs
-  ensemble), and I tried the ensemble after seeing how much single-seed test
-  scores vary. Everything except the model size is inherited from that.
+- No test case was used to fit weights.
+- Every setting I tuned was picked on five held-out non-test cases: learning
+  rate, weight decay, latent weight, dropout and the regularizer variant
+  (27 Oct), the 9k/3k training length (6 Nov), and the model size (18 Nov,
+  [script](experiments/size_sweep.py), [results](experiments/size_sweep_results.json)).
+  For the size, the largest one had the lowest validation error, though the
+  gaps between neighbouring sizes are about as big as the gap between two seeds.
+- I also ran the evaluator on the test cases along the way to see where I
+  stood: single seeds, a five-seed and a ten-seed ensemble, one run without the
+  regularizer, and both training lengths. I did not pick settings from those
+  scores. For example, the shorter training length that validation preferred
+  scored worse on the test cases for the one seed I checked (0.0490 against
+  0.0427), and I kept it.
+- Two things did follow from looking at test scores. I went for a ten-seed
+  ensemble after seeing on the test cases how much single seeds vary (0.043 to
+  0.051 over five seeds) and that averaging two and then five seeds helped; the
+  ten seeds and equal weights were fixed beforehand and no member is dropped. And the model size of my first ensemble
+  ([version 1](releases/ensemble-9k3k-v1/README.md), 24,691 parameters,
+  0.0425321534) was never checked on validation. That is why I redid that
+  choice: this version's size comes from the validation sweep, was written down
+  together with the seeds and weights before training, and was scored once.
 - The hump comes in the x-z plane while all 2D training cases are x-y, and the
   pipeline does not realign it. I tried realigning it with version 1; that
   scored slightly worse (0.0426940638 instead of 0.0425321534). I did not try
@@ -92,7 +100,7 @@ Use a new output directory for each run. Without `--out`, training writes to
 
 Defaults use: 9,000 truth-phase steps, 3,000
 RANS-phase steps, seed 1234, and it trains on all 32 non-test cases.
-CPU execution uses one PyTorch thread by default. I ran all of this on a m2 macbook and it runs fairly quick (about 11 mins for one seed).
+CPU execution uses one PyTorch thread by default. I ran all of this on a m2 macbook and it runs fairly quick (about 15 mins for one seed).
 
 The schedule was selected from an exploratory one-seed comparison on five held-out validation cases, where 9k/3k had slightly lower validation error than 20k/10k.
 
