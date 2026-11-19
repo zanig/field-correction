@@ -1,5 +1,10 @@
 # Ten-seed velocity-correction ensemble (9k/3k)
 
+Superseded by [version 2](../ensemble-9k3k-v2/README.md), which uses a larger
+model chosen on held-out validation cases. This version is kept for the record.
+The source files in this bundle differ from the repository root in `model.py`
+(model size), so use the bundle's own copies with these checkpoints.
+
 An equal-weight ensemble of ten teacher/student RANS velocity-correction models.
 Each member uses 9,000 reference-phase and 3,000 RANS-phase training steps on
 all 32 non-test cases. Inference uses RANS fields and geometry.

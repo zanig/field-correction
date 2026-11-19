@@ -5,9 +5,9 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
-LATENT_TOKENS = 4
-LATENT_DIM = 16
-TOKEN_DIM = 32
+LATENT_TOKENS = 8
+LATENT_DIM = 32
+TOKEN_DIM = 64
 NUM_HEADS = 4
 FOURIER_OCTAVES = 6
 

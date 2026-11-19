@@ -1,9 +1,15 @@
 {
   "checkpoint": "checkpoints/seed1234.pt",
-  "checkpoint_sha256": "a65788b48f6888e5be95bf4efff855111ecba84874698c580e6f53f2ef275d41",
+  "checkpoint_sha256": "b441c56935a9854360cec6bc5da60e0443fad8620227c96a3ae8586180cde93f",
   "seed": 1234,
   "model_config": {
     "dropout": 0.0
+  },
+  "model_size": {
+    "latent_tokens": 8,
+    "latent_dim": 32,
+    "token_dim": 64,
+    "parameters": 87523
   },
   "recipe": {
     "phase_steps": [
@@ -68,7 +74,7 @@
   "source_sha256": {
     "requirements.txt": "7e701a1dba7d010153e4831530ebd6074e82f439596631969c4bbc68f24080e8",
     "predict.py": "3e877702c89d39d64d3e1ec4c2a35b69a65a1f7d6ddfd554a6679cf26a5b5ee6",
-    "model.py": "561f0609f45ed6f84c41a423b926a32c88538cfb7b4715e73ca789beae3d0571",
+    "model.py": "8ec659b425a62422500f5d59c399bab1eb37c95b26f462ee0a5ddd57e1fc00cc",
     "validate.py": "f7e007eb4af509b15c56dc9f330015bf3739314ddd2852c1164eeee6937b128b",
     "prep.py": "d5b2c0f11007c5fb34b26382e8457cdf3068755a75d9c79dbd56603e238373cb",
     "utils.py": "61badf7941624b9d23611be2ec5ded687ef2acae68da65b12b5e9011d3f7710b",
@@ -76,7 +82,8 @@
     "data.py": "7e0d102620deafb1c54eedfed4f6fa73daf454efeb472bc451d59f8487c0b56c",
     "score.py": "9c60b370ca2eaadf3a62eab142165d54479b64e00ede601e54b8d1fab793baad"
   },
-  "training_seconds": 375.4552010828629,
+  "training_seconds": 2955.6000000000004,
+  "training_note": "Trained alongside three other seeds, so the wall time is longer than a solo run.",
   "training_command": "python -u train.py --out runs/my_run --seeds 1234 --steps 9000 3000 --device cpu --threads 1",
   "schedule_selection": {
     "method": "Exploratory comparison of three schedules using complete held-out non-test cases and one seed.",
@@ -105,16 +112,103 @@
       "platform": "macOS-26.5.2-arm64-arm-64bit"
     }
   },
-  "test_score": 0.04898192214870472,
+  "size_selection": {
+    "method": "Validation-only sweep of eight sizes, two seeds each, trained on 27 cases and compared on the five held-out non-test cases; lowest two-seed mean taken.",
+    "validation_mean_by_size": {
+      "all_larger": {
+        "size": [
+          8,
+          32,
+          64
+        ],
+        "mean": 0.0242077543400228,
+        "1234": 0.02347408505156636,
+        "9153": 0.02494142362847924
+      },
+      "latent_dim_32": {
+        "size": [
+          4,
+          32,
+          32
+        ],
+        "mean": 0.02617224738933146,
+        "1234": 0.025057075265794992,
+        "9153": 0.02728741951286793
+      },
+      "latent_dim_8": {
+        "size": [
+          4,
+          8,
+          32
+        ],
+        "mean": 0.032226096373051405,
+        "1234": 0.03164550382643938,
+        "9153": 0.03280668891966343
+      },
+      "released": {
+        "size": [
+          4,
+          16,
+          32
+        ],
+        "mean": 0.02715096389874816,
+        "1234": 0.0284641794860363,
+        "9153": 0.025837748311460018
+      },
+      "tokens_2": {
+        "size": [
+          2,
+          16,
+          32
+        ],
+        "mean": 0.029112161556258797,
+        "1234": 0.0296482197009027,
+        "9153": 0.028576103411614893
+      },
+      "tokens_8": {
+        "size": [
+          8,
+          16,
+          32
+        ],
+        "mean": 0.03057946041226387,
+        "1234": 0.03245189711451531,
+        "9153": 0.028707023710012436
+      },
+      "width_16": {
+        "size": [
+          4,
+          16,
+          16
+        ],
+        "mean": 0.03668114980682731,
+        "1234": 0.035955260321497914,
+        "9153": 0.0374070392921567
+      },
+      "width_64": {
+        "size": [
+          4,
+          16,
+          64
+        ],
+        "mean": 0.024592781020328403,
+        "1234": 0.026193022076040507,
+        "9153": 0.0229925399646163
+      }
+    },
+    "script": "experiments/size_sweep.py",
+    "results": "experiments/size_sweep_results.json"
+  },
+  "test_score": 0.046258778574784595,
   "per_case": {
-    "alpha_15_13929_4048": 0.027439798042300567,
-    "alpha_15_13929_2024": 0.02714264045684398,
-    "alpha_05_4071_4048": 0.03788888826221395,
-    "alpha_05_4071_2024": 0.05020977068816854,
-    "AR_1_Ret_360": 0.06131606539260087,
-    "AR_3_Ret_360": 0.062255644261165664,
-    "AR_14_Ret_180": 0.02126002055444454,
-    "NASA_2DWMH": 0.10434254953189964
+    "alpha_15_13929_4048": 0.02527637803116068,
+    "alpha_15_13929_2024": 0.016780867958181258,
+    "alpha_05_4071_4048": 0.03754521046947088,
+    "alpha_05_4071_2024": 0.05969102991980618,
+    "AR_1_Ret_360": 0.06183349102945571,
+    "AR_3_Ret_360": 0.04711270524453028,
+    "AR_14_Ret_180": 0.022098182242580672,
+    "NASA_2DWMH": 0.09973236370309112
   },
   "evaluator_version": "0.3.1"
 }
